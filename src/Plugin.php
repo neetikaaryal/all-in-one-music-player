@@ -45,6 +45,9 @@ final class Plugin {
 		// Register block.
 		add_action( 'init', array( $this, 'register_block' ) );
 
+		// Shortocode.
+		add_shortcode( 'all_in_one_music_player', array( $this, 'music_player_content' ) );
+
 		// Enqueue assets in block editor.
 		add_action( 'enqueue_block_editor_assets', array( $this, 'load_assets' ) );
 
@@ -245,7 +248,10 @@ final class Plugin {
 
 		ob_start();
 
-		include AIO_MUSIC_PLAYER_PLUGIN_DIR . 'templates/' . $theme . '.php';
+		if ( file_exists( $theme ) ) {
+
+			include AIO_MUSIC_PLAYER_PLUGIN_DIR . 'templates/' . $theme . '.php';
+		}
 
 		return ob_get_clean();
 	}
